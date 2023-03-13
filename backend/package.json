@@ -1,0 +1,26 @@
+{
+  "name": "sirata-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback"
+  },
+  "keywords": [],
+  "author": "Eru Dev. <erudev0@gmail.com>",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "knex": "^2.4.2",
+    "pg": "^8.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.35.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.4"
+  }
+}
