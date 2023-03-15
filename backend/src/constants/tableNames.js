@@ -1,6 +1,5 @@
 module.exports = {
   USER: 'user',
-  COUNTRY: 'country',
   FAMILY_CARD: 'family_card',
   DISABILITY: 'disability',
   ROLE: 'role',

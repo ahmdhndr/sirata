@@ -11,5 +11,19 @@ module.exports = {
     migrations: {
       directory: './db/migrations',
     },
+    seeds: {
+      directory: './db/seeds',
+    },
+  },
+  test: {
+    client: 'pg',
+    connection: {
+      database: process.env.POSTGRES_DB_TEST,
+      user: process.env.POSTGRES_USER_TEST,
+      password: process.env.POSTGRES_PASSWORD_TEST,
+    },
+    migrations: {
+      directory: './db/migrations',
+    },
   },
 };

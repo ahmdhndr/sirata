@@ -1,31 +1,13 @@
-/* eslint-disable no-unused-vars */
-const Knex = require('knex');
-
 const tableNames = require('../../src/constants/tableNames');
-
-function addDefaultColumns(table) {
-  table.timestamps(false, true);
-}
-
-function createNamesTable(knex, tables, colId, colString) {
-  return knex.schema.createTable(tables, (table) => {
-    table.increments(colId).notNullable();
-    table.string(colString).notNullable();
-    addDefaultColumns(table);
-  });
-}
-
-function references(table, tableName) {
-  table
-    .integer(`${tableName}_id`)
-    .unsigned()
-    .references(`${tableName}_id`)
-    .inTable(tableName)
-    .onDelete('cascade');
-}
+const {
+  addDefaultColumns,
+  createTableHelper,
+  references,
+} = require('../../src/utils/tableDbUtils');
 
 /**
- * @param {Knex} knex
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
  */
 exports.up = async (knex) => {
   await Promise.all([
@@ -34,78 +16,69 @@ exports.up = async (knex) => {
       table.string('first_name').notNullable();
       table.string('mid_name');
       table.string('last_name');
-      table.integer('phone');
+      table.string('username', 50).unique().notNullable();
       table.string('password', 128).notNullable();
+      references(table, tableNames.ROLE);
       addDefaultColumns(table);
     }),
     knex.schema.createTable(tableNames.FAMILY_CARD, (table) => {
-      table.increments('famcard_id').notNullable();
-      table.integer('famcard_number').notNullable().unique();
+      table.increments('family_card_id').notNullable();
+      table.integer('family_card_number').notNullable().unique();
       addDefaultColumns(table);
     }),
-    createNamesTable(
+    createTableHelper(
       knex,
       tableNames.DISABILITY,
       'disability_id',
       'disability_type'
     ),
-    createNamesTable(
+    createTableHelper(
       knex,
       tableNames.OCCUPATION,
       'occupation_id',
       'occupation_type'
     ),
-    createNamesTable(
+    createTableHelper(
       knex,
       tableNames.MARRIAGE,
       'marriage_id',
       'marriage_status'
     ),
-    createNamesTable(knex, tableNames.ROLE, 'role_id', 'role_status'),
-    createNamesTable(knex, tableNames.FAMREL, 'famrel_id', 'famrel_status'),
-    createNamesTable(
+    createTableHelper(knex, tableNames.ROLE, 'role_id', 'role_type'),
+    createTableHelper(knex, tableNames.FAMREL, 'famrel_id', 'famrel_status'),
+    createTableHelper(
       knex,
       tableNames.EDUCATION,
       'education_id',
       'education_type'
     ),
-    createNamesTable(knex, tableNames.GENDER, 'gender_id', 'gender_type'),
-    createNamesTable(knex, tableNames.RELIGION, 'religion_id', 'religion_name'),
-    createNamesTable(knex, tableNames.COUNTRY, 'country_id', 'country_name'),
+    createTableHelper(knex, tableNames.GENDER, 'gender_id', 'gender_type'),
+    createTableHelper(
+      knex,
+      tableNames.RELIGION,
+      'religion_id',
+      'religion_name'
+    ),
   ]);
-
-  await knex.schema.createTable(tableNames.PROVINCE, (table) => {
-    table.increments('province_id').notNullable();
-    table.string('province_name').notNullable();
-    references(table, 'country');
-    addDefaultColumns(table);
-  });
-
-  await knex.schema.createTable(tableNames.CIREG, (table) => {
-    table.increments('cireg_id').notNullable();
-    table.string('cireg_type').notNullable();
-    table.string('cireg_name').notNullable();
-    references(table, 'province');
-    addDefaultColumns(table);
-  });
 };
 
+/**
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
+ */
 exports.down = async (knex) => {
   await Promise.all(
     [
+      tableNames.ROLE,
       tableNames.USER,
       tableNames.DISABILITY,
       tableNames.FAMILY_CARD,
       tableNames.OCCUPATION,
       tableNames.MARRIAGE,
-      tableNames.ROLE,
       tableNames.FAMREL,
       tableNames.EDUCATION,
       tableNames.GENDER,
       tableNames.RELIGION,
-      tableNames.COUNTRY,
-      tableNames.PROVINCE,
-      tableNames.CIREG,
     ]
       .map((tableName) => knex.schema.dropTable(tableName))
       .reverse()
