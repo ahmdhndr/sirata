@@ -27,4 +27,5 @@
 
 ## Todo
 
-- [ ] Create database migration
+- [x] Create database migration
+- [x] Create initial seeds (role & user)
