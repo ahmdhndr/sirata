@@ -14,7 +14,7 @@ exports.up = async (knex) => {
     knex.schema.createTable(tableNames.USER, (table) => {
       table.increments('user_id').notNullable();
       table.string('first_name').notNullable();
-      table.string('mid_name');
+      table.string('mid_name').defaultTo('-');
       table.string('last_name');
       table.string('username', 50).unique().notNullable();
       table.string('password', 128).notNullable();
