@@ -29,3 +29,5 @@
 
 - [x] Create database migration
 - [x] Create initial seeds (role & user)
+- [ ] Setup express server
+- [ ] Setup Objection.js (ORM)
