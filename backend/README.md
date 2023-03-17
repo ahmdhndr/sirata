@@ -1,22 +1,5 @@
 <h1 align="center">SIRATA (Sistem Informasi Rukun Tetangga)</h1>
 
-<p align="center">Aplikasi berbasis web untuk memudahkan pekerjaan RT dalam mengolah data kependudukan.</p>
-
-## Features
-
-- [ ] Pengguna
-- [ ] Informasi Penduduk
-- [ ] Tambah Penduduk
-- [ ] Penduduk Pindah
-- [ ] Penduduk Meninggal
-- [ ] Filter Penduduk berdasarkan:
-  - [ ] Jenis Kelamin
-  - [ ] Jenis Pekerjaan
-  - [ ] Pendidikan
-  - [ ] Usia
-
-## Setup
-
 - Install dependencies: `npm install`
 - Create `.env` with your values
 - Run the postgres db and adminer: `docker compose up`
@@ -29,5 +12,6 @@
 
 - [x] Create database migration
 - [x] Create initial seeds (role & user)
-- [ ] Setup express server
+- [x] Setup express server
+- [x] Setup tests
 - [ ] Setup Objection.js (ORM)
