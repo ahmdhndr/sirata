@@ -1,4 +1,4 @@
-const options = {
+module.exports = {
   singleQuote: true,
   semi: true,
   bracketSpacing: true,
@@ -6,5 +6,3 @@ const options = {
   tabWidth: 2,
   trailingComma: 'es5',
 };
-
-module.exports = options;

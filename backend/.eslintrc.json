@@ -12,9 +12,9 @@
     "ecmaVersion": "latest"
   },
   "rules": {
-    "prettier/prettier": "error",
     "no-console": "off",
     "no-underscore-dangle": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "camelcase": "off"
   }
 }
